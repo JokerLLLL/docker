@@ -61,7 +61,9 @@ image负责存储，container负责运行。
 
 命令：
     docker run -it ubuntu:latest 
-        生成容器  -it 交互运行 tty
+        生成容器  -it 交互运行 -d 守护进程后台运行
+    docker exec -it container_name /bin/sh
+        进入容器中里面
        
     docker container ls -a
         查看运行的 和 -a 运行过的容器
@@ -70,6 +72,8 @@ image负责存储，container负责运行。
     docker container rm $(docker container ls -f 'status=exited' -q)  
         exited 或 created 全部删除 
     
+    docker image push jokerl/hello-world
+    docker image pull jokerl/hello-world
     
     
     
@@ -87,11 +91,34 @@ WORKDIR demo
 RUN pwd #/root/demo
 ADD file /root/
 ADD xx.gz /  #添加并解压
-ENV MYSQ 5.6
+ENV MYSQ 5.6    #定义常量
 VOLUME
-EXPOSE
-
+EXPOSE   #暴露端口
 
 ```
+
+
+##  docker registry
+docker 搭建私有的 registry
+https://hub.docker.com/_/registry
+在一个公网ip上建立一个私有仓库
+`docker run -d -p 5000:5000 --restart always --name registry registry:2`
+`docker ps`
+`docker build -t 127.0.0.1:5000/hello .`
+然后在 `vim /etc/docker/daemon.json` 下面建立信赖的仓库源
+```json
+{
+    "insecure-registries":[
+      "127.0.0.1:5000"
+    ]
+}
+```
+然后 在 `vim /lib/systemd/system/docker.service` 
+添加 `EnvironmentFile=/etc/docker/daemon.jsonn`
+
+`docker push 127.0.0.1:5000/hello:lasted`
+
+registry api 查看列表 
+`http://192.168.88.101:5000/v2/_catalog`
 
 
