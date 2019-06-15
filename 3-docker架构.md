@@ -122,3 +122,13 @@ registry api 查看列表
 `http://192.168.88.101:5000/v2/_catalog`
 
 
+## 实战
+
+docker run -d jokerl/hello
+docker exec -it b3565c19961d /bin/bash          # 进入up的容器
+docker exec -it b3565c19961d ip a   
+
+docker stop b3565c19961d
+docker start b3565c19961d
+
+docker log b3565c19961d             # 查看容器日志
