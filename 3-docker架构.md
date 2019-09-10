@@ -114,7 +114,7 @@ https://hub.docker.com/_/registry
 }
 ```
 然后 在 `vim /lib/systemd/system/docker.service` 
-添加 `EnvironmentFile=/etc/docker/daemon.jsonn`
+添加 `EnvironmentFile=/etc/docker/daemon.json`
 
 `docker push 127.0.0.1:5000/hello:lasted`
 
@@ -131,4 +131,10 @@ docker exec -it b3565c19961d ip a
 docker stop b3565c19961d
 docker start b3565c19961d
 
-docker log b3565c19961d             # 查看容器日志
+docker logs b3565c19961d             # 查看容器日志
+
+
+# docker 镜像
+
+设置镜像
+https://blog.csdn.net/m0_37886429/article/details/80323149
