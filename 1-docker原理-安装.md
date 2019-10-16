@@ -33,6 +33,8 @@ centos安装：
          --add-repo \
          https://download.docker.com/linux/centos/docker-ce.repo
          
+     或手动添加： cd /etc/yum.repos.d/ && wget repository_url
+         
      sudo yum install docker-ce
      
      sudo systemctl start docker
